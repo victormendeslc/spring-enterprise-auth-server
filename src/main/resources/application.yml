@@ -1,1 +1,69 @@
+server.port: 8000
 
+spring.profiles.active: dev
+
+spring.application.name: spring-enterprise-auth-server
+
+logging:
+  level:
+    root: INFO
+    com.spring.enterprise.authserver: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.transaction.interceptor: TRACE
+    org.springframework.security: DEBUG
+
+# WARNING: Exposing all management endpoints over http should only be used during development, must be locked down in production!
+management.server.port: 4004
+management.endpoint.health.show-details: "ALWAYS"
+management.endpoints.web.exposure.include: "*"
+management.metrics.tags.application: ${spring.application.name}
+
+spring:
+  jackson:
+    serialization:
+      indent_output: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/auth_db
+    username: postgres
+    password: postgres
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: public
+        format_sql: true
+        jdbc.time_zone: UTC
+        org.hibernate.envers.audit_table_suffix: _aud
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    database: POSTGRESQL
+    generate-ddl: false
+    show-sql: true
+  liquibase:
+    contexts: dev
+
+---
+spring.profiles: dev
+
+---
+spring.profiles: prod
+
+# Only allow management endpoints over http in production for info, health and circuitbreakerevents
+management.endpoints.web.exposure.include: health,info,circuitbreakerevents
+
+logging:
+  level:
+    root: WARN
+    com.spring.enterprise.authserver: WARN
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    org.springframework.transaction.interceptor: WARN
+    org.springframework.security: WARN
