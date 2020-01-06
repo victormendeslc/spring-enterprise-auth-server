@@ -1,0 +1,54 @@
+dependencies {
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core'
+    testImplementation('com.h2database:h2')
+
+    liquibaseRuntime 'org.liquibase:liquibase-core'
+    liquibaseRuntime 'org.liquibase.ext:liquibase-hibernate5:3.8'
+    liquibaseRuntime "org.postgresql:postgresql"
+    liquibaseRuntime 'org.springframework.boot:spring-boot'
+    liquibaseRuntime 'org.springframework:spring-orm'
+    liquibaseRuntime 'javax.xml.bind:jaxb-api'
+    liquibaseRuntime 'ch.qos.logback:logback-classic:1.2.3' // Fix for https://liquibase.jira.com/browse/CORE-3212
+    liquibaseRuntime sourceSets.main.output
+    liquibaseRuntime sourceSets.main.compileClasspath
+}
+
+project.ext.diffChangelogFile = "src/main/resources/db/changelog/" + new Date().format("yyyyMMddHHmmss") + "_changelog.xml"
+
+liquibase {
+    activities {
+        main {
+            driver "org.postgresql.Driver"
+            url project.ext.databaseUrl
+            username "postgres"
+            password "postgres"
+            changeLogFile project.ext.diffChangelogFile
+            referenceUrl project.ext.referenceUrl +
+                    "?dialect=" +
+                    "org.hibernate.dialect.PostgreSQLDialect" +
+                    "&hibernate.physical_naming_strategy=" +
+                    "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl" +
+                    "&hibernate.implicit_naming_strategy=" +
+                    "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl"
+            defaultSchemaName "public"
+            logLevel "debug"
+            classpath "$buildDir/classes/java/main"
+            databaseChangeLogTableName 'database_changelog'
+            databaseChangeLogLockTableName 'database_changelog_lock'
+        }
+    }
+
+    runList = 'main'
+}
+
+diff.dependsOn compileJava
+diffChangeLog.dependsOn compileJava
+generateChangelog.dependsOn compileJava
+
+task makeMigrations(type: Exec) {
+    group = 'Liquibase'
+    description = 'Produces a migration'
+    workingDir "${rootDir}"
+    commandLine './gradlew', 'diffChangeLog', "-Dorg.hibernate.envers.audit_table_suffix=_aud"
+}
