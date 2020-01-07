@@ -2,6 +2,7 @@ package com.spring.enterprise.authserver.domain;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Data
