@@ -14,16 +14,13 @@ spec:
     spec:
       containers:
         - name: auth-server
-          image: hands-on/auth-server
+          image: spring-enterprise/auth-server
           imagePullPolicy: Never
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "docker"
             - name: SPRING_CONFIG_LOCATION
-              value: file:/src/main/resources/application.yml
-          envFrom:
-            - secretRef:
-                name: rabbitmq-credentials
+              value: file:/resources/application.yml
           ports:
             - containerPort: 80
           resources:
@@ -50,9 +47,9 @@ spec:
             failureThreshold: 3
             successThreshold: 1
           volumeMounts:
-            - name: config-repo-volume
-              mountPath: /config-repo
+            - name: configmap-volume
+              mountPath: /resources
       volumes:
-        - name: config-repo-volume
+        - name: configmap-volume
           configMap:
-            name: config-repo-auth-server
+            name: auth-server-configmap
