@@ -2,7 +2,7 @@ server.port: 8000
 
 spring.profiles.active: dev
 
-spring.application.name: spring-enterprise-auth-server
+spring.application.name: auth-server
 
 logging:
   level:
@@ -52,6 +52,11 @@ spring:
 
 ---
 spring.profiles: dev
+
+---
+spring.profiles: docker
+
+server.port: 80
 
 ---
 spring.profiles: prod

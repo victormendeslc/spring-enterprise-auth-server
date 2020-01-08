@@ -1,0 +1,144 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="carlos-perche (generated)" id="1578502862762-1">
+        <createTable tableName="authority">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="authorityPK"/>
+            </column>
+            <column name="uuid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+            <column name="name" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-2">
+        <createTable tableName="oauth_access_token">
+            <column name="authentication_id" type="VARCHAR(256)">
+                <constraints primaryKey="true" primaryKeyName="oauth_access_tokenPK"/>
+            </column>
+            <column name="authentication" type="BYTEA"/>
+            <column name="client_id" type="VARCHAR(256)"/>
+            <column name="refresh_token" type="VARCHAR(256)"/>
+            <column name="token" type="BYTEA"/>
+            <column name="token_id" type="VARCHAR(256)"/>
+            <column name="user_name" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-3">
+        <createTable tableName="oauth_approvals">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="oauth_approvalsPK"/>
+            </column>
+            <column name="clientId" type="VARCHAR(256)"/>
+            <column name="expiresAt" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="lastModifiedAt" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="scope" type="VARCHAR(256)"/>
+            <column name="status" type="VARCHAR(10)"/>
+            <column name="userId" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-4">
+        <createTable tableName="oauth_client_details">
+            <column name="client_id" type="VARCHAR(256)">
+                <constraints primaryKey="true" primaryKeyName="oauth_client_detailsPK"/>
+            </column>
+            <column name="access_token_validity" type="BIGINT"/>
+            <column name="additional_information" type="VARCHAR(4096)"/>
+            <column name="authorities" type="VARCHAR(256)"/>
+            <column name="authorized_grant_types" type="VARCHAR(256)"/>
+            <column name="autoapprove" type="VARCHAR(256)"/>
+            <column name="client_secret" type="VARCHAR(256)"/>
+            <column name="refresh_token_validity" type="BIGINT"/>
+            <column name="resource_ids" type="VARCHAR(256)"/>
+            <column name="scope" type="VARCHAR(256)"/>
+            <column name="web_server_redirect_uri" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-5">
+        <createTable tableName="oauth_client_token">
+            <column name="authentication_id" type="VARCHAR(256)">
+                <constraints primaryKey="true" primaryKeyName="oauth_client_tokenPK"/>
+            </column>
+            <column name="client_id" type="VARCHAR(256)"/>
+            <column name="token" type="BYTEA"/>
+            <column name="token_id" type="VARCHAR(256)"/>
+            <column name="user_name" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-6">
+        <createTable tableName="oauth_code">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="oauth_codePK"/>
+            </column>
+            <column name="authentication" type="BYTEA"/>
+            <column name="code" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-7">
+        <createTable tableName="oauth_refresh_token">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="oauth_refresh_tokenPK"/>
+            </column>
+            <column name="authentication" type="BYTEA"/>
+            <column name="token" type="BYTEA"/>
+            <column name="token_id" type="VARCHAR(256)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-8">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="userPK"/>
+            </column>
+            <column name="uuid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+            <column name="accountExpired" type="BOOLEAN"/>
+            <column name="accountLocked" type="BOOLEAN"/>
+            <column name="activationKey" type="VARCHAR(255)"/>
+            <column name="credentialsExpired" type="BOOLEAN"/>
+            <column name="enabled" type="BOOLEAN"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="resetPasswordKey" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-9">
+        <createTable tableName="user_authority">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="user_authorityPK"/>
+            </column>
+            <column name="uuid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+            <column name="authority_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-10">
+        <addUniqueConstraint columnNames="name" constraintName="AUTHORITY_UNIQUE_NAME" tableName="authority"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-11">
+        <addUniqueConstraint columnNames="uuid" constraintName="UC_AUTHORITYUUID_COL" tableName="authority"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-12">
+        <addUniqueConstraint columnNames="uuid" constraintName="UC_USERUUID_COL" tableName="user"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-13">
+        <addUniqueConstraint columnNames="uuid" constraintName="UC_USER_AUTHORITYUUID_COL" tableName="user_authority"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-14">
+        <addUniqueConstraint columnNames="user_id, authority_id" constraintName="USER_AUTHORITY_UNIQUE_USER_ID_AND_AUTHORITY_ID" tableName="user_authority"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-15">
+        <addUniqueConstraint columnNames="username" constraintName="USER_UNIQUE_USERNAME" tableName="user"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-16">
+        <addForeignKeyConstraint baseColumnNames="authority_id" baseTableName="user_authority" constraintName="FK_USER_AUTHORITY_AUTHORITY_ID" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="authority" validate="true"/>
+    </changeSet>
+    <changeSet author="carlos-perche (generated)" id="1578502862762-17">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_authority" constraintName="FK_USER_AUTHORITY_USER_ID" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
