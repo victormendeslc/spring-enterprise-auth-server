@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:11.2
+          env:
+            - name: TZ
+              value: "UTC"
+            - name: PGTZ
+              value: "UTC"
+          envFrom:
+            - secretRef:
+                name: postgres-server-credentials
+          ports:
+            - containerPort: 5432
+          resources:
+            limits:
+              memory: 350Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432

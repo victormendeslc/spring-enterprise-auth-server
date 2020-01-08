@@ -21,6 +21,9 @@ spec:
               value: "docker"
             - name: SPRING_CONFIG_LOCATION
               value: file:/resources/application.yml
+          envFrom:
+            - secretRef:
+              name: postgres-credentials
           ports:
             - containerPort: 80
           resources:
