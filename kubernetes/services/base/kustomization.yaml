@@ -1,2 +1,3 @@
 resources:
-  - auth-server.yml
+  - deployment.yaml
+  - service.yaml
