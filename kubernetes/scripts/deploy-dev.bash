@@ -23,7 +23,7 @@ kubectl create secret generic postgres-credentials \
 #kubectl create secret tls tls-certificate --key kubernetes/cert/tls.key --cert kubernetes/cert/tls.crt
 
 # First deploy the resource managers and wait for their pods to become ready
-kubectl apply -f kubernetes/services/overlays/dev/postgres.yml
+kubectl apply -f kubernetes/services/overlays/dev/postgres.yaml
 kubectl wait --timeout=600s --for=condition=ready pod --all
 
 # Next deploy the microservices and wait for their pods to become ready

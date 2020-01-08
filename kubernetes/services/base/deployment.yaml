@@ -11,48 +11,49 @@ spec:
     metadata:
       labels:
         app: auth-server
+        version: latest
     spec:
       containers:
-        - name: auth-server
-          image: spring-enterprise/auth-server
-          imagePullPolicy: Never
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: "docker"
-            - name: SPRING_CONFIG_LOCATION
-              value: file:/resources/application.yml
-          envFrom:
-            - secretRef:
-              name: postgres-credentials
-          ports:
-            - containerPort: 80
-          resources:
-            limits:
-              memory: 350Mi
-          livenessProbe:
-            httpGet:
-              scheme: HTTP
-              path: /actuator/info
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 20
-            successThreshold: 1
-          readinessProbe:
-            httpGet:
-              scheme: HTTP
-              path: /actuator/health
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 3
-            successThreshold: 1
-          volumeMounts:
-            - name: configmap-volume
-              mountPath: /resources
-      volumes:
+      - name: auth-server
+        image: spring-enterprise/auth-server
+        imagePullPolicy: Never
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "docker"
+        - name: SPRING_CONFIG_LOCATION
+          value: file:/resources/application.yml
+        envFrom:
+        - secretRef: postgres-credentials
+#          name: postgres-credentials
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: 350Mi
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /actuator/info
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 20
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /actuator/health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
+          successThreshold: 1
+        volumeMounts:
         - name: configmap-volume
-          configMap:
-            name: auth-server-configmap
+          mountPath: /resources
+      volumes:
+      - name: configmap-volume
+        configMap:
+          name: auth-server-configmap

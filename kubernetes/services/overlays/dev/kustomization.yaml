@@ -1,4 +1,4 @@
 bases:
   - ../../base
 resources:
-  - postgres.yml
+  - postgres.yaml
