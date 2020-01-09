@@ -3,9 +3,20 @@ version: '3.7'
 services:
   auth-server:
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     image: spring-enterprise/auth-server
+    container_name: auth-server
+#    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_CONFIG_LOCATION=file:/resources/application.yml
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    volumes:
+      - $PWD/src/main/resources:/resources
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres:11.2

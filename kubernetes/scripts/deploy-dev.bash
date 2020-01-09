@@ -3,6 +3,13 @@
 # Print commands to the terminal before execution and stop the script if any error occurs
 set -ex
 
+#eval $(minikube docker-env)
+#
+#./gradlew build && docker-compose build
+#
+#kubectl create namespace spring-enterprise
+#kubectl config set-context $(kubectl config current-context) --namespace=spring-enterprise
+
 # Map minikube.me to the IP address of the Minikube instance by
 # adding a line to the file /etc/hosts with the following command:
 # sudo bash -c "echo $(minikube ip) minikube.me | tee -a /etc/hosts"

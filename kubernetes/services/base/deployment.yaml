@@ -23,8 +23,8 @@ spec:
         - name: SPRING_CONFIG_LOCATION
           value: file:/resources/application.yml
         envFrom:
-        - secretRef: postgres-credentials
-#          name: postgres-credentials
+        - secretRef:
+            name: postgres-credentials
         ports:
         - containerPort: 80
         resources:
