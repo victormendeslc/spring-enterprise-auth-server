@@ -21,14 +21,14 @@ import java.util.function.Supplier;
 
 @Slf4j
 @Configuration
-public class LiquibaseConfiguration {
+public class LiquibaseConfig {
 
     private static final String SPRING_PROFILE_NO_LIQUIBASE = "no-liquibase";
 
     @Autowired
     private Environment env;
 
-    public LiquibaseConfiguration() {
+    public LiquibaseConfig() {
         log.info("Created");
     }
 

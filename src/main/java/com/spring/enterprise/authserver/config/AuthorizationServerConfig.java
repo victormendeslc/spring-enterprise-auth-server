@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     @Qualifier("dataSource")
@@ -42,7 +42,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
 
-    public AuthorizationServerConfiguration() {
+    public AuthorizationServerConfig() {
         log.info("Created");
     }
 
@@ -55,17 +55,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Bean
     public TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
-    }
-
-    @Bean
-    @Primary
-    public DefaultTokenServices tokenServices() {
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-        defaultTokenServices.setSupportRefreshToken(true);
-
-        return defaultTokenServices;
+        return new JdbcTokenStore(dataSource);
     }
 
     @Override
@@ -78,6 +68,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .tokenStore(tokenStore())
+                .approvalStoreDisabled()
+                .reuseRefreshTokens(false)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }

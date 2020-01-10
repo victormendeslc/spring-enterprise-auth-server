@@ -1,0 +1,55 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+      <changeSet author="victor.cunha" id="1578502862762-18" context="dev">
+        <insert tableName="oauth_client_details">
+            <column name="client_id" value="client"/>
+            <column name="access_token_validity" value="1800"/>
+            <column name="authorized_grant_types" value="password,refresh_token"/>
+            <column name="autoapprove" value="true"/>
+            <column name="client_secret" value="{bcrypt}$2a$10$zIM4ktazBchnbuXQritsm.qKArVxu9lFLu5M.ja1ozTAeNhDU1I3K"/>
+            <column name="refresh_token_validity" value="84400"/>
+            <column name="scope" value="read,write"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="1"/>
+            <column name="uuid" value="8c5b56f2-c938-45f9-baaa-3c449058eadd"/>
+            <column name="enabled" value="true"/>
+            <column name="password" value="{bcrypt}$2a$10$yUgt0pwJSyw0lVnHUg5OgOcOjkB0U40gEqKCcMUqmZ4jZ.PGTiJqG"/>
+            <column name="username" value="SISTEMA"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="2"/>
+            <column name="uuid" value="af0a80c6-330d-11ea-978f-2e728ce88125"/>
+            <column name="enabled" value="true"/>
+            <column name="password" value="{bcrypt}$2a$10$TK0F2DQXDm8wNHNiV1ri3OBpJ8GD0Mtil74OjAEanibWGDWP/tqbW"/>
+            <column name="username" value="usuario"/>
+        </insert>
+
+        <insert tableName="authority">
+            <column name="id" value="1"/>
+            <column name="uuid" value="af0a8486-330d-11ea-978f-2e728ce88125"/>
+            <column name="name" value="SYSTEM"/>
+        </insert>
+
+        <insert tableName="authority">
+            <column name="id" value="2"/>
+            <column name="uuid" value="af0a85c6-330d-11ea-978f-2e728ce88125"/>
+            <column name="name" value="ADMIN"/>
+        </insert>
+
+        <insert tableName="user_authority">
+            <column name="id" value="1"/>
+            <column name="uuid" value="114a518e-330f-11ea-978f-2e728ce88125"/>
+            <column name="user_id" value="1"/>
+            <column name="authority_id" value="1"/>
+        </insert>
+        <insert tableName="user_authority">
+            <column name="id" value="2"/>
+            <column name="uuid" value="114a5404-330f-11ea-978f-2e728ce88125"/>
+            <column name="user_id" value="2"/>
+            <column name="authority_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

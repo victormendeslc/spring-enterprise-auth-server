@@ -16,12 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Slf4j
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
-    public WebSecurityConfiguration() {
+    public WebSecurityConfig() {
         log.info("Created");
     }
 
@@ -52,44 +52,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().ignoringRequestMatchers(request -> "/introspect".equals(request.getRequestURI()));
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().anyRequest().authenticated()
-//                .antMatchers("/oauth/**").permitAll()
-//                .and()
-//                .csrf().disable();
-//    }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable().authorizeRequests()
-//                .antMatchers("/oauth/check_token", "/oauth/token", "/oauth/authorize", "login", "/internal").permitAll()
-//                .and().formLogin().loginPage("/login").permitAll().and().logout().permitAll()
-//                .logoutSuccessUrl("/login");
-//    }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests().anyRequest().authenticated()
-//                .antMatchers("/oauth/**").permitAll()
-//                .and()
-//                .csrf().disable();
-//    }
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .antMatcher("/**")
-//                .authorizeRequests()
-//                .antMatchers("/oauth/authorize**", "/login**", "/error**")
-//                .permitAll()
-//                .and()
-//                .authorizeRequests()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().permitAll();
-//    }
-
 }

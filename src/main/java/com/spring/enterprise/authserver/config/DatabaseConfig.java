@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EntityScan(basePackages = "com.spring.enterprise.authserver")
 @EnableJpaRepositories(basePackages = "com.spring.enterprise.authserver")
-public class DatabaseConfiguration {
+public class DatabaseConfig {
 
-    public DatabaseConfiguration() {
+    public DatabaseConfig() {
         log.info("Created");
     }
 }

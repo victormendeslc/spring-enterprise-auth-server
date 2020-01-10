@@ -1,6 +1,7 @@
 package com.spring.enterprise.authserver.domain;
 
 import lombok.Data;
+import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,33 +15,42 @@ import java.util.*;
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}, name = "USER_UNIQUE_USERNAME"))
 public class User extends AbstractEntity implements UserDetails {
 
+    @NonNull
     @Column(length = 50)
     private String username;
 
+    @NonNull
     @Column
     private String password;
 
-    @Column
+    @NonNull
+    @Column(name = "account_expired")
     private Boolean accountExpired;
 
-    @Column
+    @NonNull
+    @Column(name="account_locked")
     private Boolean accountLocked;
 
-    @Column
+    @NonNull
+    @Column(name="credentials_expired")
     private Boolean credentialsExpired;
 
+    @NonNull
     @Column
     private Boolean enabled;
 
-    @Column
+    @Column(name = "activation_key")
     private String activationKey;
 
-    @Column
+    @Column(name = "reset_password_key")
     private String resetPasswordKey;
 
     @OneToMany(mappedBy = "user", targetEntity = UserAuthority.class, cascade = {
             CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<UserAuthority> userAuthorities = new HashSet<UserAuthority>();
+    private Set<UserAuthority> userAuthorities = new HashSet<>();
+
+    public User() {
+    }
 
     @Override
     public String getPassword() {

@@ -6,7 +6,7 @@ spring.profiles.active: dev
 
 logging:
   level:
-    root: INFO
+    root: DEBUG
     com.spring.enterprise.authserver: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
@@ -25,13 +25,13 @@ spring:
       indent_output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/auth_db
+    url: jdbc:postgresql://localhost:15432/auth_db
     driverClassName: org.postgresql.Driver
     username: postgres
     password: postgres
     hikari:
       poolName: Hikari
-      auto-commit: false
+      auto-commit: true
   jpa:
     open-in-view: false
     properties:
