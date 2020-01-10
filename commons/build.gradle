@@ -37,14 +37,13 @@ publishing {
     repositories {
         maven {
             name 'nexus'
-            url "http://nexus.groupcondominios.com.br:8081/repository/maven-snapshots/"
+            url "http://[nexus-url]:8081/repository/maven-snapshots/"
             credentials {
-                username project.repoUser
-                password project.repoPassword
+                username System.getenv()['NEXUS_USER']
+                password System.getenv('NEXUS_PWD')
             }}
     }
 }
-
 
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.10'
