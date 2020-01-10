@@ -1,0 +1,52 @@
+plugins {
+    id 'net.ltgt.apt' version '0.20'
+    id 'java'
+    id 'idea'
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+}
+
+apply plugin: 'net.ltgt.apt-idea'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+group 'com.spring.enterprise.authserver.commons'
+version '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+apply plugin: 'maven-publish'
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact("build/libs/auth-server-commons-$version"+".jar") {
+                extension 'jar'
+            }
+        }
+    }
+    repositories {
+        maven {
+            name 'nexus'
+            url "http://nexus.groupcondominios.com.br:8081/repository/maven-snapshots/"
+            credentials {
+                username project.repoUser
+                password project.repoPassword
+            }}
+    }
+}
+
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+}

@@ -1,6 +1,7 @@
 package com.spring.enterprise.authserver.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"username"}, name = "USER_UNIQUE_USERNAME"))
 public class User extends AbstractEntity implements UserDetails {
@@ -48,9 +50,6 @@ public class User extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "user", targetEntity = UserAuthority.class, cascade = {
             CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<UserAuthority> userAuthorities = new HashSet<>();
-
-    public User() {
-    }
 
     @Override
     public String getPassword() {

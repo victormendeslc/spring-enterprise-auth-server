@@ -29,6 +29,8 @@ project.ext.databaseUrl = "jdbc:postgresql://localhost:5432/auth_db"
 project.ext.referenceUrl = "hibernate:spring:com.spring.enterprise.authserver"
 
 dependencies {
+	implementation project(':commons')
+
 	runtimeOnly 'org.postgresql:postgresql'
 
 	compileOnly "org.projectlombok:lombok"
