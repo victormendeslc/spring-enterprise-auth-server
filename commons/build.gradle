@@ -9,6 +9,7 @@ plugins {
 apply plugin: 'net.ltgt.apt-idea'
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
@@ -16,7 +17,7 @@ repositories {
 }
 
 group 'com.spring.enterprise.authserver.commons'
-version '0.0.1-SNAPSHOT'
+version '0.0.1-RELEASE'
 sourceCompatibility = '11'
 
 configurations {
@@ -25,11 +26,10 @@ configurations {
     }
 }
 
-apply plugin: 'maven-publish'
 publishing {
     publications {
         maven(MavenPublication) {
-            artifact("build/libs/auth-server-commons-$version"+".jar") {
+            artifact("build/libs/$rootProject.name-$version" + ".jar") {
                 extension 'jar'
             }
         }
@@ -37,11 +37,12 @@ publishing {
     repositories {
         maven {
             name 'nexus'
-            url "http://nexus-url:8081/repository/maven-snapshots/"
+            url "http://nexus-url:8081/repository/maven-releases/"
             credentials {
-                username System.getenv()['NEXUS_USER']
+                username System.getenv('NEXUS_USER')
                 password System.getenv('NEXUS_PWD')
-            }}
+            }
+        }
     }
 }
 
