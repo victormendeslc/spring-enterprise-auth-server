@@ -6,7 +6,6 @@ import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * create table oauth_approvals (
